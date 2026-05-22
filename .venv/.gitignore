@@ -1,0 +1,43 @@
+# created by virtualenv automatically
+
+
+# ========================
+# Entorno y Credenciales
+# ========================
+.env
+venv/
+env/
+ENV/
+
+# ========================
+# Archivos de Python
+# ========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# ========================
+# Archivos de Django
+# ========================
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# ========================
+# Entorno de Desarrollo (PyCharm / JetBrains)
+# ========================
+.idea/
+*.iml
+.run/
+
+# ========================
+# Sistema Operativo
+# ========================
+.DS_Store
+Thumbs.db
+
+
