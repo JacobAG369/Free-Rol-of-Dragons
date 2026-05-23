@@ -1,22 +1,49 @@
-"""
-URL configuration for FreeRolOfDragons project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/6.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
+from rest_framework.routers import DefaultRouter
+
+from apps.campaigns.api.views import (
+    CampanaViewSet,
+    PersonajeClaseViewSet,
+    PersonajeConjuroViewSet,
+    PersonajeInventarioViewSet,
+    PersonajeViewSet,
+)
+from apps.homebrew.api.views import (
+    HechizoViewSet,
+    MonstruoViewSet as HomebrewMonstruoViewSet,
+    ObjetoViewSet as HomebrewObjetoViewSet,
+)
+from apps.srd.api.views import (
+    ClaseViewSet,
+    ConjuroViewSet,
+    MonstruoViewSet,
+    ObjetoViewSet,
+    RazaViewSet,
+)
+
+router = DefaultRouter()
+
+# SRD — solo lectura
+router.register('srd/razas', RazaViewSet, basename='raza')
+router.register('srd/clases', ClaseViewSet, basename='clase')
+router.register('srd/conjuros', ConjuroViewSet, basename='conjuro')
+router.register('srd/monstruos', MonstruoViewSet, basename='monstruo')
+router.register('srd/objetos', ObjetoViewSet, basename='objeto')
+
+# Homebrew — CRUD con ownership
+router.register('homebrew/hechizos', HechizoViewSet, basename='hb-hechizo')
+router.register('homebrew/objetos', HomebrewObjetoViewSet, basename='hb-objeto')
+router.register('homebrew/monstruos', HomebrewMonstruoViewSet, basename='hb-monstruo')
+
+# Campañas — CRUD propio del usuario
+router.register('campanas', CampanaViewSet, basename='campana')
+router.register('personajes', PersonajeViewSet, basename='personaje')
+router.register('personajes-clases', PersonajeClaseViewSet, basename='personaje-clase')
+router.register('personajes-inventario', PersonajeInventarioViewSet, basename='personaje-inventario')
+router.register('personajes-conjuros', PersonajeConjuroViewSet, basename='personaje-conjuro')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/', include(router.urls)),
 ]
