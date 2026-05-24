@@ -36,6 +36,8 @@ class Personaje(models.Model):
         related_name='personajes',
     )
     nombre = models.CharField(max_length=200)
+    trasfondo = models.CharField(max_length=100, blank=True, default='')
+    alineamiento = models.CharField(max_length=50, blank=True, default='')
     experiencia = models.PositiveIntegerField(default=0)
     raza = models.ForeignKey(
         'srd.Raza',

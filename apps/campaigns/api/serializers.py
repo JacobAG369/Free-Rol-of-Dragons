@@ -19,9 +19,11 @@ class CampanaSerializer(serializers.ModelSerializer):
 
 
 class PersonajeClaseSerializer(serializers.ModelSerializer):
+    clase_nombre = serializers.StringRelatedField(source='clase', read_only=True)
+
     class Meta:
         model = PersonajeClase
-        fields = ('id', 'clase', 'nivel_en_clase')
+        fields = ('id', 'personaje', 'clase', 'clase_nombre', 'nivel_en_clase')
 
 
 class PersonajeInventarioSerializer(serializers.ModelSerializer):
@@ -56,6 +58,7 @@ class PersonajeConjuroSerializer(serializers.ModelSerializer):
 
 class PersonajeSerializer(serializers.ModelSerializer):
     usuario = serializers.StringRelatedField(read_only=True)
+    raza_nombre = serializers.StringRelatedField(source='raza', read_only=True)
     clases = PersonajeClaseSerializer(
         source='personajeclase_set', many=True, read_only=True
     )
