@@ -94,7 +94,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'free_rol_dragons',
         'USER': 'postgres',
-        'PASSWORD': 'jsjsjs',
+        'PASSWORD': 'FanOfDnD1st',
         'HOST': 'localhost',
         'PORT': '5432',
     }
